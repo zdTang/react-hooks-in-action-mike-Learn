@@ -6,13 +6,20 @@ export default function BookablesList() {
 
   const bookablesInGroup = bookables.filter((b) => b.group === group);
 
-  const bookableIndex = 1;
+  let bookableIndex = 1;
+
+  function changeBookable(selectedIndex) {
+    bookableIndex = selectedIndex;
+    console.log(selectedIndex);
+  }
 
   return (
     <ul className="bookables items-list-nav">
       {bookablesInGroup.map((b, i) => (
         <li key={b.title} className={i === bookableIndex ? "selected" : null}>
-          <button className="btn">{b.title}</button>
+          <button className="btn" onClick={() => changeBookable(i)}>
+            {b.title}
+          </button>
         </li>
       ))}
     </ul>

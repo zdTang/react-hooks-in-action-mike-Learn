@@ -14,3 +14,7 @@ react-icons
 
 Very strange, I cannot use 'import { bookables } form "xxx.json"' directly, while the Book's source code can
 I have no idea if this is bacause different Node version?
+
+# At this momonet, if you click button, you will change the state,but the UI will not be update
+
+Just because you change the value of a varialbe within your component doesn't mean React will notice.
