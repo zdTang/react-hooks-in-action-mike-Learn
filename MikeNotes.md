@@ -26,3 +26,7 @@ from start to the end. only one time!
 With useState, React is now listening,
 we fixate on the state
 react does its diffing and update the DOM
+
+# add a user picker
+
+In the { }, we can put JSX there. but sometimes we should pay attention to the syntax of anymous funcition. when we use ()=>{} in the {}, it will cause error, we can change to ()=>()
