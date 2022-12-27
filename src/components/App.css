@@ -144,3 +144,11 @@ main {
   background: var(--primary);
   color: var(--light-text);
 }
+
+ul .users {
+  background-color: aquamarine;
+}
+
+.selectedUser {
+  background-color: #f3cf03;
+}
