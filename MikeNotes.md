@@ -29,4 +29,13 @@ react does its diffing and update the DOM
 
 # follow Book's approach.
 
-Add a user list other than listing all user's information
+Add a user list other than listing all user's informationent
+
+# Add group picker
+
+a. Pay attention how SELECT' value will make certain OPTION to behave as it is to be "selected"
+b. Pay attention how data flow goes from the top to the bottom, even beyond the function
+c. Pay attention how the function use "%" to cycle all items. (not clear the logic)
+d. Pay attention how to use SET to filter unique values from database and use ... to spread them into a new array
+e. Pay attention how to dynamically create two different groups of bookable items based on user's interaction.
+f. "React.strictMode" as it always console.log two times, could make you mis-understand the data-flow.
