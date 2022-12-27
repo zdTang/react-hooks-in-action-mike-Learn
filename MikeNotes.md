@@ -26,3 +26,7 @@ from start to the end. only one time!
 With useState, React is now listening,
 we fixate on the state
 react does its diffing and update the DOM
+
+# follow Book's approach.
+
+Add a user list other than listing all user's information

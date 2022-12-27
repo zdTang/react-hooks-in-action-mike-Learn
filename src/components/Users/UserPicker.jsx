@@ -1,7 +1,11 @@
+import db from "../../static.json";
+const { users } = db;
 export default function UserPicker() {
   return (
     <select>
-      <option>Users</option>
+      {users.map((u) => (
+        <option key={u.id}>{u.name}</option>
+      ))}
     </select>
   );
 }
