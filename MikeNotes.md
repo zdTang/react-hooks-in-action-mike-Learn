@@ -39,3 +39,7 @@ c. Pay attention how the function use "%" to cycle all items. (not clear the log
 d. Pay attention how to use SET to filter unique values from database and use ... to spread them into a new array
 e. Pay attention how to dynamically create two different groups of bookable items based on user's interaction.
 f. "React.strictMode" as it always console.log two times, could make you mis-understand the data-flow.
+
+# Add another State, check box
+
+understand how to use Conditional Render! {display_condition && xx_Something_can_be_display_when}
