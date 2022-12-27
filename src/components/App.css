@@ -144,3 +144,24 @@ main {
   background: var(--primary);
   color: var(--light-text);
 }
+
+.item {
+  background: var(--secondary);
+  color: var(--light-text);
+  padding: 2rem;
+  text-align: left;
+}
+
+.item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--primary);
+  border-bottom: 8px solid white;
+  margin: -2rem -2rem 1rem;
+  padding: 0 1rem;
+}
+
+.item-header .controls {
+  font-weight: normal;
+}
