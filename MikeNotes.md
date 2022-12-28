@@ -50,3 +50,7 @@ understand how to use Conditional Render! {display_condition && xx_Something_can
 
 a, Be aware some new States will be retrieved based on previous State.
 b, Or be passed by Action's payload.
+
+# useReducer
+
+No like useState, we send a value to useState, for useReducer, we send a Action to tell the reducer function how to processig the state.

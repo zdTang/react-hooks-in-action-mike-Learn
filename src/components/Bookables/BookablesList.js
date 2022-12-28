@@ -1,40 +1,51 @@
-import React, { useState, Fragment } from "react";
+import React, { useReducer, Fragment } from "react";
 import { FaArrowRight } from "react-icons/fa";
+import reducer from "./reducer";
 import data from "../../static.json";
 const { bookables, sessions, days } = data;
-const groups = [...new Set(bookables.map((b) => b.group))];
 
-console.log("start to run function BookableList--");
+const initialState = {
+  group: "Rooms",
+  bookableIndex: 0,
+  hasDetails: true,
+  bookables,
+};
+
 export default function BookablesList() {
-  // Here to learn how to use SET to get unified value
+  // those states are guaranteed by the React to be the latest State.
+  const [{ group, bookableIndex, bookables, hasDetails }, dispatch] =
+    useReducer(reducer, initialState);
 
+  //const { group, bookableIndex, bookables, hasDetails } = state; // use this one to init all STATEs, VERY GOOD!
+
+  const groups = [...new Set(bookables.map((b) => b.group))];
+
+  console.log("start to run function BookableList--");
   console.log("--Into BookableList");
-  //const group = "Rooms";
-  const [group, setGroup] = useState("Rooms");
-  const bookablesInGroup = bookables.filter((b) => b.group === group);
-  const [bookableIndex, setBookableIndex] = useState(0);
 
-  //   function changeBookable(selectedIndex) {
-  //     bookableIndex = selectedIndex;
-  //     console.log(selectedIndex);
-  //   }
+  const bookablesInGroup = bookables.filter((b) => b.group === group);
+
   console.log(`group is ${group}`);
   console.dir(`bookablesInGroup is ${bookablesInGroup}`);
   console.log(`bookableIndex is ${bookableIndex}`);
 
   const bookable = bookablesInGroup[bookableIndex]; //the item user specified
-  const [hasDetails, setHasDetails] = useState(false);
 
-  //
-  function changeGroup(event){
-    setGroup(event.target.value);// Here to get the value of OPTION
-    setBookableIndex(0);
+  function changeGroup(event) {
+    dispatch({ type: "SET_GROUP", payload: event.target.value });
   }
 
+  function changeBookable(selectedIndex) {
+    dispatch({ type: "SET_BOOKABLE", payload: selectedIndex });
+  }
 
   // this function will do the trick to cycle the options
   function nextBookable() {
-    setBookableIndex((i) => (i + 1) % bookablesInGroup.length);
+    dispatch({ type: "NEXT_BOOKABLE" }); // No payload
+  }
+
+  function toggleDetails() {
+    dispatch({ type: "TOGGLE_HAS_DETAILS" });
   }
 
   console.log("render bookableList");
@@ -53,7 +64,7 @@ export default function BookablesList() {
         <ul className="bookables items-list-nav">
           {bookablesInGroup.map((b, i) => (
             <li key={b.id} className={i === bookableIndex ? "selected" : null}>
-              <button className="btn" onClick={() => setBookableIndex(i)}>
+              <button className="btn" onClick={() => changeBookable(i)}>
                 {b.title}
               </button>
             </li>
@@ -79,7 +90,7 @@ export default function BookablesList() {
                     type="checkbox"
                     checked={hasDetails}
                     /*use useState to control state*/
-                    onChange={() => setHasDetails((has) => !has)}
+                    onChange={toggleDetails}
                   />
                   Show Details
                 </label>
