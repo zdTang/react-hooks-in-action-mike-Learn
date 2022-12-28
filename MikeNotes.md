@@ -43,3 +43,6 @@ f. "React.strictMode" as it always console.log two times, could make you mis-und
 # Add another State, check box
 
 understand how to use Conditional Render! {display_condition && xx_Something_can_be_display_when}
+
+
+# Use one function to update several STATEs one time. 

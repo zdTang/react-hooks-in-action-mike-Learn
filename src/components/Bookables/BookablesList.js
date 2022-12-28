@@ -25,6 +25,13 @@ export default function BookablesList() {
   const bookable = bookablesInGroup[bookableIndex]; //the item user specified
   const [hasDetails, setHasDetails] = useState(false);
 
+  //
+  function changeGroup(event){
+    setGroup(event.target.value);// Here to get the value of OPTION
+    setBookableIndex(0);
+  }
+
+
   // this function will do the trick to cycle the options
   function nextBookable() {
     setBookableIndex((i) => (i + 1) % bookablesInGroup.length);
@@ -35,7 +42,7 @@ export default function BookablesList() {
     <Fragment>
       <div>
         {/*bookable group List */}
-        <select value={group} onChange={(e) => setGroup(e.target.value)}>
+        <select value={group} onChange={changeGroup}>
           {groups.map((g) => (
             <option value={g} key={g}>
               {g}
