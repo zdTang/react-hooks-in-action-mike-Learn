@@ -54,3 +54,7 @@ b, Or be passed by Action's payload.
 # useReducer
 
 No like useState, we send a value to useState, for useReducer, we send a Action to tell the reducer function how to processig the state.
+
+# Another useReducer example
+
+Notice how to use those dispatchs within the event handler.
