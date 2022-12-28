@@ -43,3 +43,7 @@ f. "React.strictMode" as it always console.log two times, could make you mis-und
 # Add another State, check box
 
 understand how to use Conditional Render! {display_condition && xx_Something_can_be_display_when}
+
+# Add detail to User
+
+Leverage the power of conditional determination. when user choose a user name, state changes, the component will be re-rendered. During this render, we will display user's detail information based on the chosen user's Id (state to be updated)

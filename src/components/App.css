@@ -165,3 +165,21 @@ main {
 .item-header .controls {
   font-weight: normal;
 }
+
+.userName {
+  background-color: #173f5f;
+  color: #fff;
+  padding: 20px;
+  display: flex;
+}
+
+.userDetail {
+  padding: 20px;
+  background-color: aquamarine;
+  margin-top: 10px;
+  display: flex-box;
+}
+
+.userTitle {
+  color: #fff;
+}
