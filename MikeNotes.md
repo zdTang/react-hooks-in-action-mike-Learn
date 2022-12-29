@@ -58,3 +58,12 @@ No like useState, we send a value to useState, for useReducer, we send a Action 
 # Another useReducer example
 
 Notice how to use those dispatchs within the event handler.
+
+# Other Demos of useEffect
+
+https://codesandbox.io/s/sayhello-jhijd // Run useEffect every Render
+https://codesandbox.io/s/windowsize-gn80v?file=/src/index.js // Run useEffect after Mount
+https://codesandbox.io/s/windowsizecleanup-b8wii?file=/src/App.js:386-453 // Run cleanup function to clean Effect
+https://codesandbox.io/s/userstorage-c987h?file=/src/App.js:0-682 // Run useEffect base on dependencies ( see React-hook-in-action-demo)
+
+for the 4th demo, the second useEffect will run after Render. Even it has dependency, it is "sanjiv" once the component be called. after the Component is rendered, this useEffect will be ran.
