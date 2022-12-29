@@ -67,3 +67,9 @@ https://codesandbox.io/s/windowsizecleanup-b8wii?file=/src/App.js:386-453 // Run
 https://codesandbox.io/s/userstorage-c987h?file=/src/App.js:0-682 // Run useEffect base on dependencies ( see React-hook-in-action-demo)
 
 for the 4th demo, the second useEffect will run after Render. Even it has dependency, it is "sanjiv" once the component be called. after the Component is rendered, this useEffect will be ran.
+
+# Use useEffect to fetch data from remote database
+
+1, set up Node server and use 'json-server --watch db.json --port 3001 --delay 3000' to simulate latency of network
+2, the dependency of useEffect is [], so that the Effect will be executed only one time when the component mount, which is enought for loading users from database.
+3, Notice, if adding latency to the node server, we can see the Spinner is running at the location where the dropdown list is supposed to be
