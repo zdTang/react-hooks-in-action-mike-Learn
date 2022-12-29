@@ -77,3 +77,7 @@ for the 4th demo, the second useEffect will run after Render. Even it has depend
 # Use useEffect to fetch data
 
 const user = users?.[userIndex]; // this syntax is beautiful, if users is null, then will return null
+
+# use Async within useEffect hook
+
+As the Async function will return a function(Promise), which will be regarded as a CLEANUP function of the Effect. will cause Error.

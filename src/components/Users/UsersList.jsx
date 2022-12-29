@@ -6,10 +6,10 @@ export default function UsersList() {
   const [userIndex, setUserIndex] = useState(0);
   const user = users?.[userIndex]; // this syntax is beautiful
 
-  useEffect(() => {
-    fetch("http://localhost:3001/users")
-      .then((resp) => resp.json())
-      .then((data) => setUsers(data));
+  useEffect(async () => {
+    const resp = await fetch("http://localhost:3001/users");
+    const data = await resp.json();
+    setUsers(data);
   }, []);
 
   if (users === null) {
