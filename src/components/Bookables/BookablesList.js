@@ -1,35 +1,42 @@
-import React, { useReducer, Fragment } from "react";
+import React, { useReducer, Fragment, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import reducer from "./reducer";
+import getData from "../../utils/api";
 import data from "../../static.json";
-const { bookables, sessions, days } = data;
+import Spinner from "../../UI/Spinner";
+const { sessions, days } = data;
 
 const initialState = {
   group: "Rooms",
   bookableIndex: 0,
   hasDetails: true,
-  bookables,
+  bookables: [], // set bookable to an empty array
+  isLoading: false,
+  error: false,
 };
 
 export default function BookablesList() {
-  // those states are guaranteed by the React to be the latest State.
-  const [{ group, bookableIndex, bookables, hasDetails }, dispatch] =
-    useReducer(reducer, initialState);
-
-  //const { group, bookableIndex, bookables, hasDetails } = state; // use this one to init all STATEs, VERY GOOD!
+  console.log("start to run function BookableList--");
+  const [
+    { group, bookableIndex, bookables, hasDetails, isLoading, error },
+    dispatch,
+  ] = useReducer(reducer, initialState);
 
   const groups = [...new Set(bookables.map((b) => b.group))];
-
-  console.log("start to run function BookableList--");
-  console.log("--Into BookableList");
-
   const bookablesInGroup = bookables.filter((b) => b.group === group);
-
-  console.log(`group is ${group}`);
-  console.dir(`bookablesInGroup is ${bookablesInGroup}`);
-  console.log(`bookableIndex is ${bookableIndex}`);
-
   const bookable = bookablesInGroup[bookableIndex]; //the item user specified
+
+  useEffect(() => {
+    console.log("in BookableList's useEffect --");
+    dispatch({ type: "FETCH_BOOKABLES_REQUEST" });
+    getData("http://localhost:3001/bookables")
+      .then((bookables) =>
+        dispatch({ type: "FETCH_BOOKABLES_SUCCESS", payload: bookables })
+      )
+      .catch((error) =>
+        dispatch({ type: "FETCH_BOOKABLES_ERROR", payload: error })
+      );
+  }, []);
 
   function changeGroup(event) {
     dispatch({ type: "SET_GROUP", payload: event.target.value });
@@ -48,6 +55,19 @@ export default function BookablesList() {
     dispatch({ type: "TOGGLE_HAS_DETAILS" });
   }
 
+  if (error) {
+    return <p>{error.message}</p>;
+  }
+
+  if (isLoading) {
+    console.log("run spinner...");
+    return (
+      <p>
+        <Spinner />
+        Loading bookables...
+      </p>
+    );
+  }
   console.log("render bookableList");
   return (
     <Fragment>

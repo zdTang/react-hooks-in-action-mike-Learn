@@ -85,3 +85,9 @@ As the Async function will return a function(Promise), which will be regarded as
 # use Async
 
 Notice those 3 console.logs in the useEffect hook, try to study the order carefully. which line will be executed first and which is later.
+
+# Loading data
+
+Even through the useEffect will be executed after Mounting, but during the Effect is working, it can dispatch different Action to Reducer, which will update the State, and the State will trigger component be reloading
+
+This section is good demo for fetching data from database via useEffect + useReducer !
