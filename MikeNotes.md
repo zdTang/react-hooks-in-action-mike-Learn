@@ -81,3 +81,7 @@ const user = users?.[userIndex]; // this syntax is beautiful, if users is null, 
 # use Async within useEffect hook
 
 As the Async function will return a function(Promise), which will be regarded as a CLEANUP function of the Effect. will cause Error.
+
+# use Async
+
+Notice those 3 console.logs in the useEffect hook, try to study the order carefully. which line will be executed first and which is later.

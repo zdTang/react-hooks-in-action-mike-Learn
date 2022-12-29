@@ -6,10 +6,16 @@ export default function UsersList() {
   const [userIndex, setUserIndex] = useState(0);
   const user = users?.[userIndex]; // this syntax is beautiful
 
-  useEffect(async () => {
-    const resp = await fetch("http://localhost:3001/users");
-    const data = await resp.json();
-    setUsers(data);
+  useEffect(() => {
+    async function getUsers() {
+      console.log("in the getUsers function");
+      const resp = await fetch("http://localhost:3001/users"); // execute will exit immediately and run those lines after getUsers()
+      const data = await resp.json();
+      console.log("in the getUsers function,but after await");
+      setUsers(data);
+    }
+    getUsers(); // to call an async function, not always use 'await'??????
+    console.log("after getUsers");
   }, []);
 
   if (users === null) {
