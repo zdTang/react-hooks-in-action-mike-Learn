@@ -73,3 +73,7 @@ for the 4th demo, the second useEffect will run after Render. Even it has depend
 1, set up Node server and use 'json-server --watch db.json --port 3001 --delay 3000' to simulate latency of network
 2, the dependency of useEffect is [], so that the Effect will be executed only one time when the component mount, which is enought for loading users from database.
 3, Notice, if adding latency to the node server, we can see the Spinner is running at the location where the dropdown list is supposed to be
+
+# Use useEffect to fetch data
+
+const user = users?.[userIndex]; // this syntax is beautiful, if users is null, then will return null
