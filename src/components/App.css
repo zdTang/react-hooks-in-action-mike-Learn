@@ -165,3 +165,18 @@ main {
 .item-header .controls {
   font-weight: normal;
 }
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.page-loading {
+  font-size: 300%;
+}
+.icon-loading {
+  animation: spin 1.5s linear infinite;
+}
+header .icon-loading {
+  color: white;
+}
