@@ -101,3 +101,9 @@ Here we use the useRef in another way. when the useRef track a state, if the sta
 When use the second useEffect to run setInterval(), it will trigger "NEXT_BOOKABLE" action every 3 seconds. While, if the "bookable" have not been loaded by the first useEffect, this "NEXT_BOOKABLE" will cause the Id to be a NAN. what I did is just to check if "bookable" is ready. and dispatch "NEXT_BOOKABLE" until "bookable" is ready.
 
 Now, if you navigate to "bookables", it will do presentation automatically.
+
+# use useRef to refer a DOM node
+
+1, declare a ref variable with useRef. const myRef= useRef()
+2, assign this ref to the DOM Node. <button ref={myRef}>Next</button>
+3, use "myRef.current" to refer the Node

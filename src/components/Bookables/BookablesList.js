@@ -17,6 +17,7 @@ const initialState = {
 
 export default function BookablesList() {
   console.log("start to run function BookableList--");
+  const nextButtonRef = useRef();
   const [
     { group, bookableIndex, bookables, hasDetails, isLoading, error },
     dispatch,
@@ -66,6 +67,10 @@ export default function BookablesList() {
 
   function changeBookable(selectedIndex) {
     dispatch({ type: "SET_BOOKABLE", payload: selectedIndex });
+    console.log(`in the changeBookable function`);
+    console.log(`nextButtonRef.current is:`);
+    console.dir(nextButtonRef.current);
+    nextButtonRef.current.focus();
   }
 
   // this function will do the trick to cycle the options
@@ -114,7 +119,12 @@ export default function BookablesList() {
         </ul>
         <p>
           {/*Next button */}
-          <button className="btn" onClick={nextBookable} autoFocus>
+          <button
+            className="btn"
+            onClick={nextBookable}
+            ref={nextButtonRef}
+            autoFocus
+          >
             <FaArrowRight />
             <span>Next</span>
           </button>
