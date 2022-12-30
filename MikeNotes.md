@@ -107,3 +107,11 @@ Now, if you navigate to "bookables", it will do presentation automatically.
 1, declare a ref variable with useRef. const myRef= useRef()
 2, assign this ref to the DOM Node. <button ref={myRef}>Next</button>
 3, use "myRef.current" to refer the Node
+
+# Change the hierarchy of the bookable component.
+
+1, create bookablesPage->bookablesView=>(1, bookablesList, 2, bookableDetail)
+2, remove the detail information of a bookable into an individual component
+3, use the Parent component(bookablesView) to maintain useReducer and pass States
+and Dispatch to two Child component.
+4, manage like this will make the logic cleaier.

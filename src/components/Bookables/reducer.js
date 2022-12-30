@@ -11,11 +11,11 @@ export default function reducer(state, action) {
         ...state,
         bookableIndex: action.payload, // update STATE with Payload passed by ACTION
       };
-    case "TOGGLE_HAS_DETAILS":
-      return {
-        ...state,
-        hasDetails: !state.hasDetails, //  toggle the detail button, generate new State based on previous state
-      };
+    // case "TOGGLE_HAS_DETAILS":
+    //   return {
+    //     ...state,
+    //     hasDetails: !state.hasDetails, //  toggle the detail button, generate new State based on previous state
+    //   };
     case "NEXT_BOOKABLE":
       const count = state.bookables.filter(
         (b) => b.group === state.group
