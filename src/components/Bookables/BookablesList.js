@@ -1,4 +1,4 @@
-import React, { useReducer, Fragment, useEffect } from "react";
+import React, { useReducer, Fragment, useEffect, useRef } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import reducer from "./reducer";
 import getData from "../../utils/api";
@@ -25,18 +25,40 @@ export default function BookablesList() {
   const groups = [...new Set(bookables.map((b) => b.group))];
   const bookablesInGroup = bookables.filter((b) => b.group === group);
   const bookable = bookablesInGroup[bookableIndex]; //the item user specified
+  console.log(`bookableInGroup is :===`);
+  console.dir(bookablesInGroup);
+  console.log(`bookableIndex is :===`);
+  console.dir(bookableIndex);
+  console.log(`bookable is :===`);
+  console.dir(bookable);
 
+  const timerRef = useRef(null); // Assign a ref to the timerRef variable
   useEffect(() => {
     console.log("in BookableList's useEffect --");
     dispatch({ type: "FETCH_BOOKABLES_REQUEST" });
     getData("http://localhost:3001/bookables")
-      .then((bookables) =>
-        dispatch({ type: "FETCH_BOOKABLES_SUCCESS", payload: bookables })
-      )
+      .then((bookables) => {
+        console.log("Bookables loaded successfully");
+        dispatch({ type: "FETCH_BOOKABLES_SUCCESS", payload: bookables });
+      })
       .catch((error) =>
         dispatch({ type: "FETCH_BOOKABLES_ERROR", payload: error })
       );
   }, []);
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      // set a Interval and assign ID to timeRef
+      console.log(`set the Interval Id is ${timerRef.current}`);
+      if (bookables.length > 0) dispatch({ type: "NEXT_BOOKABLE" });
+    }, 3000);
+    return stopPresentation; // return a funtion to clean up the timer.It will run when Component un-Mount
+  }, [bookables]);
+
+  function stopPresentation() {
+    console.log(`clean up the Interval Id is ${timerRef.current}`);
+    clearInterval(timerRef.current); // use the timer ID to clear the timer
+  }
 
   function changeGroup(event) {
     dispatch({ type: "SET_GROUP", payload: event.target.value });
@@ -114,6 +136,9 @@ export default function BookablesList() {
                   />
                   Show Details
                 </label>
+                <button className="btn" onClick={stopPresentation}>
+                  Stop
+                </button>
               </span>
             </div>
 

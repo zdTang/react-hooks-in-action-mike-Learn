@@ -20,6 +20,10 @@ export default function reducer(state, action) {
       const count = state.bookables.filter(
         (b) => b.group === state.group
       ).length;
+      console.log("in the NEXT_BOOKABLE");
+      console.dir(state);
+      console.log(`the count is ${count}`);
+      console.log(`the bookable Index is ${(state.bookableIndex + 1) % count}`);
       return {
         ...state,
         bookableIndex: (state.bookableIndex + 1) % count, // assign a new index

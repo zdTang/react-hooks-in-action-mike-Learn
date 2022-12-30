@@ -91,3 +91,13 @@ Notice those 3 console.logs in the useEffect hook, try to study the order carefu
 Even through the useEffect will be executed after Mounting, but during the Effect is working, it can dispatch different Action to Reducer, which will update the State, and the State will trigger component be reloading
 
 This section is good demo for fetching data from database via useEffect + useReducer !
+
+# use useRef to do presentation
+
+Here we use the useRef in another way. when the useRef track a state, if the state changes, it will not trigger re-render. so that we use useRef to store TIMER, which is a inner logic and need not to re-render the UI.
+
+# Fix NAN bug
+
+When use the second useEffect to run setInterval(), it will trigger "NEXT_BOOKABLE" action every 3 seconds. While, if the "bookable" have not been loaded by the first useEffect, this "NEXT_BOOKABLE" will cause the Id to be a NAN. what I did is just to check if "bookable" is ready. and dispatch "NEXT_BOOKABLE" until "bookable" is ready.
+
+Now, if you navigate to "bookables", it will do presentation automatically.
