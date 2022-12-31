@@ -1,24 +1,30 @@
-import React, { useState, useEffect, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import Spinner from "../../UI/Spinner";
+import getData from "../../utils/api";
 
-export default function UsersList() {
+export default function UsersList({ user, setUser }) {
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState(null);
-  const [userIndex, setUserIndex] = useState(0);
-  const user = users?.[userIndex]; // this syntax is beautiful
 
   useEffect(() => {
-    async function getUsers() {
-      console.log("in the getUsers function");
-      const resp = await fetch("http://localhost:3001/users"); // execute will exit immediately and run those lines after getUsers()
-      const data = await resp.json();
-      console.log("in the getUsers function,but after await");
-      setUsers(data);
-    }
-    getUsers(); // to call an async function, not always use 'await'??????
-    console.log("after getUsers");
-  }, []);
+    getData("http://localhost:3001/users")
+      .then((data) => {
+        setUser(data[0]); // set initial user to first (or undefined)
+        setUsers(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setIsLoading(false);
+      });
+  }, [setUser]); // pass in dependency
 
-  if (users === null) {
+  if (error) {
+    return <p>{error.message}</p>;
+  }
+
+  if (isLoading) {
     return (
       <p>
         <Spinner /> Loading users...
@@ -26,29 +32,17 @@ export default function UsersList() {
     );
   }
 
+  // user user.id to match selection.
+  // remove the UI for user details
   return (
-    <Fragment>
-      <ul className="users items-list-nav">
-        {users.map((u, i) => (
-          <li key={u.id} className={i === userIndex ? "selected" : null}>
-            <button className="btn" onClick={() => setUserIndex(i)}>
-              {u.name}
-            </button>
-          </li>
-        ))}
-      </ul>
-
-      {user && (
-        <div className="item user">
-          <div className="item-header">
-            <h2>{user.name}</h2>
-          </div>
-          <div className="user-details">
-            <h3>{user.title}</h3>
-            <p>{user.notes}</p>
-          </div>
-        </div>
-      )}
-    </Fragment>
+    <ul className="users items-list-nav">
+      {users.map((u) => (
+        <li key={u.id} className={u.id === user?.id ? "selected" : null}>
+          <button className="btn" onClick={() => setUser(u)}>
+            {u.name}
+          </button>
+        </li>
+      ))}
+    </ul>
   );
 }

@@ -127,3 +127,9 @@ After compiling, the React could advice adding the parameter 'bookable' as a dep
 In reality, once I added the `bookable` in the dependency array, the useEffect will keep on loading data from database which is not what we want.
 
 React's recommondation is not always feasible!
+
+# Use Tutorial's approach
+
+The parent pass `user` and `setUser` to userList. the user is used to retrieve `id`
+While I just pass `user` to userList, and id is tracked as a individual state
+Both approach works well.
