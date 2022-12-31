@@ -8,9 +8,15 @@ export default function BookablesView() {
   // managed by its parent `BookablesView`
   const [bookable, setBookable] = useState();
 
+  function updateBookable(selected) {
+    if (selected) {
+      selected.lastShown = Date.now();
+      setBookable(selected);
+    }
+  }
   return (
     <>
-      <BookablesList bookable={bookable} setBookable={setBookable} />
+      <BookablesList bookable={bookable} setBookable={updateBookable} />
       <BookableDetails bookable={bookable} />
     </>
   );

@@ -133,3 +133,10 @@ React's recommondation is not always feasible!
 The parent pass `user` and `setUser` to userList. the user is used to retrieve `id`
 While I just pass `user` to userList, and id is tracked as a individual state
 Both approach works well.
+
+# In useEffect, using custom function will cause repeatedly operation
+
+This time, I use a user defined funtion as dependency in the useEffect, which is not like updater or dispatcher,
+it will cause the useEffect be called repeatedly.
+
+Try to use fiddler or see the Chrome's developer console, will see the useEffect be called endless...
