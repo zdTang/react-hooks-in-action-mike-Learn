@@ -140,3 +140,7 @@ This time, I use a user defined funtion as dependency in the useEffect, which is
 it will cause the useEffect be called repeatedly.
 
 Try to use fiddler or see the Chrome's developer console, will see the useEffect be called endless...
+
+# useCallback
+
+wrap the function with useCallback, the React will regard it as the same function. so that the issue is resolved
