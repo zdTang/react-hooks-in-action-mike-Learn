@@ -1,62 +1,51 @@
-import React, { useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import getData from "../../utils/api";
 import Spinner from "../../UI/Spinner";
 
-export default function BookablesList({ state, dispatch }) {
+export default function BookablesList({ bookable, setBookable }) {
   console.log("start to run function BookableList--");
+
+  // These stata will not be raised to parent as they are not necessary for other places
+  // 1. Variables
+  const [bookables, setBookables] = useState([]);
+  const [error, setError] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  const group = bookable?.group;
+  const groups = [...new Set(bookables.map((b) => b.group))];
+  const bookablesInGroup = bookables.filter((b) => b.group === group);
+
   const nextButtonRef = useRef();
 
-  const groups = [...new Set(state.bookables.map((b) => b.group))];
-  const bookablesInGroup = state.bookables.filter(
-    (b) => b.group === state.group
-  );
-  const bookable = bookablesInGroup[state.bookableIndex]; //the item user specified
-  console.log(`bookableInGroup is :===`);
-  console.dir(bookablesInGroup);
-  console.log(`bookableIndex is :===`);
-  console.dir(state.bookableIndex);
-  console.log(`bookable is :===`);
-  console.dir(bookable);
-
-  const timerRef = useRef(null); // Assign a ref to the timerRef variable
+  // 2. Effects
   useEffect(() => {
     console.log("in BookableList's useEffect --");
-    dispatch({ type: "FETCH_BOOKABLES_REQUEST" });
+
     getData("http://localhost:3001/bookables")
       .then((bookables) => {
         console.log("Bookables loaded successfully");
-        dispatch({ type: "FETCH_BOOKABLES_SUCCESS", payload: bookables });
+        setBookable(bookables[0]); // this state is raised and saved to BookableView
+        setBookables(bookables);
+        setIsLoading(false);
       })
-      .catch((error) =>
-        dispatch({ type: "FETCH_BOOKABLES_ERROR", payload: error })
-      );
-  }, [dispatch]);
+      .catch((error) => {
+        setError(true);
+        setIsLoading(false);
+      });
+  }, [setBookable]); // Include the external function in the dependency list.
 
-  // Before, the dispatch is passed within the component so that the REACT knows it
-  // is identical, so it is not necessary to be a dependency.
-  // But here the 'dispatch' is passed from parent.
-
-  useEffect(() => {
-    timerRef.current = setInterval(() => {
-      // set a Interval and assign ID to timeRef
-      console.log(`set the Interval Id is ${timerRef.current}`);
-      if (state.bookables.length > 0) dispatch({ type: "NEXT_BOOKABLE" });
-    }, 3000);
-    return stopPresentation; // return a funtion to clean up the timer.It will run when Component un-Mount
-  }, [state.bookables, dispatch]);
-
-  function stopPresentation() {
-    console.log(`clean up the Interval Id is ${timerRef.current}`);
-    clearInterval(timerRef.current); // use the timer ID to clear the timer
-  }
+  // 3. Handler Functions
 
   function changeGroup(event) {
-    dispatch({ type: "SET_GROUP", payload: event.target.value });
+    const bookablesInSelectedGroup = bookables.filter(
+      (b) => b.group === event.target.value
+    );
+    setBookable(bookablesInSelectedGroup[0]); // raise state to parent
   }
 
-  function changeBookable(selectedIndex) {
-    dispatch({ type: "SET_BOOKABLE", payload: state.selectedIndex });
+  function changeBookable(selectedBookable) {
+    setBookable(selectedBookable); // raise state to parent
     console.log(`in the changeBookable function`);
     console.log(`nextButtonRef.current is:`);
     console.dir(nextButtonRef.current);
@@ -65,14 +54,18 @@ export default function BookablesList({ state, dispatch }) {
 
   // this function will do the trick to cycle the options
   function nextBookable() {
-    dispatch({ type: "NEXT_BOOKABLE" }); // No payload
+    const i = bookablesInGroup.indexOf(bookable);
+    const nextIndex = (i + 1) % bookablesInGroup.length; // if no, then become 0 !
+    const nextBookable = bookablesInGroup[nextIndex];
+    setBookable(nextBookable); // raise state to parent
   }
 
-  if (state.error) {
-    return <p>{state.error.message}</p>;
+  // 4. ui
+  if (error) {
+    return <p>{error.message}</p>;
   }
 
-  if (state.isLoading) {
+  if (isLoading) {
     console.log("run spinner...");
     return (
       <p>
@@ -85,7 +78,7 @@ export default function BookablesList({ state, dispatch }) {
   return (
     <div>
       {/*bookable group List */}
-      <select value={state.group} onChange={changeGroup}>
+      <select value={group} onChange={changeGroup}>
         {groups.map((g) => (
           <option value={g} key={g}>
             {g}
@@ -94,12 +87,9 @@ export default function BookablesList({ state, dispatch }) {
       </select>
       {/*bookable item List */}
       <ul className="bookables items-list-nav">
-        {bookablesInGroup.map((b, i) => (
-          <li
-            key={b.id}
-            className={i === state.bookableIndex ? "selected" : null}
-          >
-            <button className="btn" onClick={() => changeBookable(i)}>
+        {bookablesInGroup.map((b) => (
+          <li key={b.id} className={b.id === bookable.id ? "selected" : null}>
+            <button className="btn" onClick={() => changeBookable(b)}>
               {b.title}
             </button>
           </li>
