@@ -150,3 +150,9 @@ wrap the function with useCallback, the React will regard it as the same functio
 move some states and dispatch to Parent component.
 
 Bookings.js is the parent, which maintain a useReducer and pass state, dispatch to is decedents
+
+# Booking grid function
+
+1, mapping bookables data into bookable grid view
+2, two aspects: JSON data structure ==> Table view, add CSS style
+3, Currently, the date mapping has bug, the given JSON data cannot be map to the correct slot, need to be fixed.
