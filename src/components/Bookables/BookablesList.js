@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
 import getData from "../../utils/api";
 import Spinner from "../../UI/Spinner";
@@ -16,7 +16,7 @@ export default function BookablesList({ bookable, setBookable }) {
   const groups = [...new Set(bookables.map((b) => b.group))];
   const bookablesInGroup = bookables.filter((b) => b.group === group);
 
-  const nextButtonRef = useRef();
+  //const nextButtonRef = useRef();
 
   // 2. Effects
   useEffect(() => {
@@ -47,9 +47,9 @@ export default function BookablesList({ bookable, setBookable }) {
   function changeBookable(selectedBookable) {
     setBookable(selectedBookable); // raise state to parent
     console.log(`in the changeBookable function`);
-    console.log(`nextButtonRef.current is:`);
-    console.dir(nextButtonRef.current);
-    nextButtonRef.current.focus();
+    //console.log(`nextButtonRef.current is:`);
+    //console.dir(nextButtonRef.current);
+    //nextButtonRef.current.focus();
   }
 
   // this function will do the trick to cycle the options
@@ -100,7 +100,7 @@ export default function BookablesList({ bookable, setBookable }) {
         <button
           className="btn"
           onClick={nextBookable}
-          ref={nextButtonRef}
+          // ref={nextButtonRef}
           autoFocus
         >
           <FaArrowRight />
