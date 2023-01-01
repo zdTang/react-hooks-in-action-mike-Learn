@@ -144,3 +144,9 @@ Try to use fiddler or see the Chrome's developer console, will see the useEffect
 # useCallback
 
 wrap the function with useCallback, the React will regard it as the same function. so that the issue is resolved
+
+# Re-create file hierarchy of Booking function
+
+move some states and dispatch to Parent component.
+
+Bookings.js is the parent, which maintain a useReducer and pass state, dispatch to is decedents
