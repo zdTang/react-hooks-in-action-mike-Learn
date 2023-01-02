@@ -10,7 +10,12 @@ import { useState } from "react";
 import UserContext from "./Users/UserContext";
 
 export default function App() {
+  console.log(`in the App==`);
   const [user, setUser] = useState();
+  console.log(`app--user:`);
+  console.dir(user);
+  console.log(`render the App==`);
+
   return (
     <Router>
       <div className="App">

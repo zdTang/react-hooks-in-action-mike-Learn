@@ -21,7 +21,9 @@ export default function UserPicker({ user, setUser }) {
   function handleSelect(e) {
     const selectedID = parseInt(e.target.value, 10);
     const selectedUser = users.find((u) => u.id === selectedID);
-
+    console.log(`in UserPicker--handleSelect function`);
+    console.log(`in UserPicker--select a user:`);
+    console.dir(selectedUser);
     setUser(selectedUser);
   }
 

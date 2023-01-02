@@ -182,3 +182,10 @@ Several options can resolve this issue, I used the third party library `moment`
 3, const state=useContext(xxxContext) in Child component to consume the passing state
 
 Also, display or hide `Edit` button based on if the current user is the owner of booking
+
+# add console.log to track data flow
+
+The following function can be used to override system's log function.
+
+console.log = function () {};
+console.dir = function () {};
