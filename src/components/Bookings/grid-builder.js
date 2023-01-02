@@ -32,14 +32,14 @@ export function getGrid(bookable, startDate) {
 
 // Transform the array of bookings into the handy lookup object p181
 export function transformBookings(bookingsArray) {
+  console.log(`in transformBookings Function`);
   return bookingsArray.reduce((bookings, booking) => {
     const { session, date } = booking;
     if (!bookings[session]) {
       bookings[session] = {};
     }
-    console.log(`in transformBookings Function`);
+
     bookings[session][date] = booking;
-    console.dir(bookings);
     return bookings;
   }, {});
 }

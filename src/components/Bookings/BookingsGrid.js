@@ -4,6 +4,7 @@ import { getBookings } from "../../utils/api";
 import Spinner from "../../UI/Spinner";
 
 export default function BookingsGrid({ week, bookable, booking, setBooking }) {
+  console.log(`in the Bookings Grid==`);
   const [bookings, setBookings] = useState(null);
   const [error, setError] = useState(false);
 
@@ -14,9 +15,12 @@ export default function BookingsGrid({ week, bookable, booking, setBooking }) {
   );
 
   useEffect(() => {
+    console.log(`in the Bookings Grid--Effect ==`);
     if (bookable) {
       let doUpdate = true;
-
+      console.log(
+        `in the Bookings Grid--Effect--update myself and parent's state`
+      );
       setBookings(null);
       setError(false);
       setBooking(null);
@@ -24,7 +28,12 @@ export default function BookingsGrid({ week, bookable, booking, setBooking }) {
       getBookings(bookable.id, week.start, week.end)
         .then((resp) => {
           if (doUpdate) {
-            setBookings(transformBookings(resp));
+            console.log(`in the Bookings Grid--Effect--fetch  Bookings:`);
+            console.dir(resp);
+            const result = transformBookings(resp);
+            console.log(`in the Bookings Grid--Effect--transform  Bookings:`);
+            console.dir(result);
+            setBookings(result);
           }
         })
         .catch(setError);

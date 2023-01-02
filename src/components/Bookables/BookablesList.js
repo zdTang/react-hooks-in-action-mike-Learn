@@ -4,10 +4,12 @@ import getData from "../../utils/api";
 import Spinner from "../../UI/Spinner";
 
 export default function BookablesList({ bookable, setBookable }) {
-  console.log("start to run function BookableList--");
+  console.log("in BookableList====");
 
   // These stata will not be raised to parent as they are not necessary for other places
   // 1. Variables
+  console.log(`bookable:`);
+  console.dir(bookable);
   const [bookables, setBookables] = useState([]);
   const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -74,7 +76,7 @@ export default function BookablesList({ bookable, setBookable }) {
       </p>
     );
   }
-  console.log("render bookableList");
+  console.log("render bookableList==");
   return (
     <div>
       {/*bookable group List */}

@@ -6,10 +6,16 @@ import BookingDetails from "./BookingDetails";
 import weekReducer from "./weekReducer";
 
 export default function Bookings({ bookable }) {
-  //useReducer, 2nd para: arguments, 3td para: Initial function(lazy loading)
+  console.log(`in Bookings====`);
+  console.dir(`bookable is :`);
+  console.dir(bookable);
   const [week, dispatch] = useReducer(weekReducer, new Date(), getWeek);
   const [booking, setBooking] = useState(null);
-
+  console.dir(`week is :`);
+  console.dir(week);
+  console.dir(`booking is:`);
+  console.dir(booking);
+  console.log(`render Booking=====`);
   return (
     <div className="bookings">
       <div>

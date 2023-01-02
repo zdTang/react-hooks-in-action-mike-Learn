@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 
 export default function WeekPicker({ dispatch }) {
+  console.log(`In the weekPicker==`);
   const textboxRef = useRef();
 
   function goToDate() {
@@ -15,6 +16,7 @@ export default function WeekPicker({ dispatch }) {
       payload: textboxRef.current.value,
     });
   }
+  console.log(`Render the weekPicker==`);
   return (
     <div>
       <p className="date-picker">
@@ -30,8 +32,7 @@ export default function WeekPicker({ dispatch }) {
           <input
             type="text"
             ref={textboxRef}
-            placeholder="e.g. 2020-09-02"
-            defaultValue="2023-01-01"
+            defaultValue={new Date().toDateString()}
           ></input>
           <button className="go btn" onClick={goToDate}>
             <FaCalendarCheck />

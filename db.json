@@ -6,7 +6,7 @@
       "title": "Meeting Room",
       "notes": "The one with the big table and interactive screen. Seats 12. See Colin if you need the tea and coffee trolley.",
       "sessions": [1, 2, 3],
-      "days": [1, 2, 3, 4, 5, 0]
+      "days": [1, 2, 3, 4, 5]
     },
     {
       "id": 2,
@@ -82,15 +82,7 @@
   "bookings": [
     {
       "session": "Lunch",
-      "date": "2023-01-01",
-      "bookableId": 1,
-      "title": "Onboarding",
-      "bookerId": 3,
-      "id": 1
-    },
-    {
-      "session": "Lunch",
-      "date": "2023-01-02",
+      "date": "2023-01-04",
       "bookableId": 3,
       "title": "Football Challenge",
       "bookerId": 3,
@@ -105,14 +97,6 @@
       "id": 3
     },
     {
-      "session": "Evening",
-      "date": "2023-01-05",
-      "bookableId": 1,
-      "title": "Meeting Room",
-      "bookerId": 2,
-      "id": 4
-    },
-    {
       "session": "Breakfast",
       "date": "2023-01-06",
       "bookableId": 3,
@@ -122,15 +106,7 @@
     },
     {
       "session": "Lunch",
-      "date": "2023-01-05",
-      "bookableId": 7,
-      "title": "Movie Pitch!",
-      "bookerId": 1,
-      "id": 6
-    },
-    {
-      "session": "Lunch",
-      "date": "2023-01-03",
+      "date": "2023-01-04",
       "bookableId": 1,
       "title": "New Employee Intro",
       "bookerId": 1,
@@ -138,7 +114,7 @@
     },
     {
       "session": "Afternoon",
-      "date": "2023-01-07",
+      "date": "2023-01-06",
       "bookableId": 1,
       "title": "Project Update",
       "bookerId": 1,

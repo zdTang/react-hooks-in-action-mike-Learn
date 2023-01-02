@@ -156,3 +156,14 @@ Bookings.js is the parent, which maintain a useReducer and pass state, dispatch 
 1, mapping bookables data into bookable grid view
 2, two aspects: JSON data structure ==> Table view, add CSS style
 3, Currently, the date mapping has bug, the given JSON data cannot be map to the correct slot, need to be fixed.
+
+# The program has bug.
+
+When read data from database, it cannot be mapped to the calendar. for example, it is Jan 3, but will be mapped to Jan 4.
+
+# Understand the data-flow
+
+When click the `booking` button, how is the data flow looks like?
+
+1, <UserPicker /> is within the `app.js`, and it is not belong to any `route`, so that without being clicking, it will be executed.
+2, userPicker=>Effect: fetch users from DB and use `setUsers` to update `users`, which will trigger re-render the `userPicker` component, after the re-render, the `user` dropdown list is ready to use, a dropdown list replaces the `spinner`.
