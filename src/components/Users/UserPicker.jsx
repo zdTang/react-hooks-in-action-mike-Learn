@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "../../UI/Spinner";
 
-export default function UserPicker() {
+export default function UserPicker({ user, setUser }) {
   console.log(`into userPicker!`);
   const [users, setUsers] = useState(null);
 
@@ -13,8 +13,17 @@ export default function UserPicker() {
         console.log("here is return users in useEffect:");
         console.dir(data);
         setUsers(data);
+        setUser(data[0]);
       });
-  }, []);
+  }, [setUser]);
+
+  // Function to handle when user choose a user from dropdown list
+  function handleSelect(e) {
+    const selectedID = parseInt(e.target.value, 10);
+    const selectedUser = users.find((u) => u.id === selectedID);
+
+    setUser(selectedUser);
+  }
 
   //Notice the spinner will lies on the location where is supposed to display the drop down list
   if (users === null) {
@@ -23,9 +32,11 @@ export default function UserPicker() {
   }
   console.log(`UserPicker render!`);
   return (
-    <select>
+    <select className="user-picker" onChange={handleSelect} value={user?.id}>
       {users.map((u) => (
-        <option key={u.id}>{u.name}</option>
+        <option key={u.id} value={u.id}>
+          {u.name}
+        </option>
       ))}
     </select>
   );
