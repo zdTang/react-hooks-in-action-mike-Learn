@@ -3,14 +3,17 @@ import Spinner from "../../UI/Spinner";
 import getData from "../../utils/api";
 
 export default function UsersList({ user, setUser }) {
+  console.log(`in the UserList===`);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [users, setUsers] = useState(null);
 
   useEffect(() => {
+    console.log(`in the UserList--useEffect===`);
     getData("http://localhost:3001/users")
       .then((data) => {
-        setUser(data[0]); // set initial user to first (or undefined)
+        //setUser(data[0]); // set initial user to first (or undefined)
+        console.log(`in the UserList--useEffect--loading data from DB===`);
         setUsers(data);
         setIsLoading(false);
       })

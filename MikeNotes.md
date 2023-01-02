@@ -189,3 +189,9 @@ The following function can be used to override system's log function.
 
 console.log = function () {};
 console.dir = function () {};
+
+# Tutorial's approach for challenge8.1
+
+1, tutorial uses useContext to share the `user`, while my approach is pass `user` to `userPage` component from the Router.
+2, I found buth UserList and UserPicker will load users from DB, why two times?
+3, Each time, I click the 'user' menu, it will trigger useEffect to load DB, can I just load one time?
