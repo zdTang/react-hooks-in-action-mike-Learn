@@ -195,3 +195,10 @@ console.dir = function () {};
 1, tutorial uses useContext to share the `user`, while my approach is pass `user` to `userPage` component from the Router.
 2, I found buth UserList and UserPicker will load users from DB, why two times?
 3, Each time, I click the 'user' menu, it will trigger useEffect to load DB, can I just load one time?
+
+# Understand the User state's location
+
+1. logged user is maintained at App.js level, it is the real user.
+2. the picking user (as a user, I can check other user's bookings,and need to choose other user's name)
+
+so that, need to difference these two level user. YOUSELF(logging user) and other users(which are the handler of those booking items).
