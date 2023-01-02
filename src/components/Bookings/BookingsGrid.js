@@ -2,6 +2,7 @@ import React, { useEffect, useMemo, useState, Fragment } from "react";
 import { getGrid, transformBookings } from "./grid-builder";
 import { getBookings } from "../../utils/api";
 import Spinner from "../../UI/Spinner";
+import moment from "moment/moment";
 
 export default function BookingsGrid({ week, bookable, booking, setBooking }) {
   console.log(`in the Bookings Grid==`);
@@ -13,6 +14,9 @@ export default function BookingsGrid({ week, bookable, booking, setBooking }) {
 
     [bookable, week.start]
   );
+
+  console.log(`bookingsGrid--dates:`);
+  console.dir(dates);
 
   useEffect(() => {
     console.log(`in the Bookings Grid--Effect ==`);
@@ -42,6 +46,7 @@ export default function BookingsGrid({ week, bookable, booking, setBooking }) {
     }
   }, [week, bookable, setBooking]);
 
+  // CELL: mapping bookings to Calendar
   function cell(session, date) {
     const cellData = bookings?.[session]?.[date] || grid[session][date];
 
@@ -78,7 +83,9 @@ export default function BookingsGrid({ week, bookable, booking, setBooking }) {
               </span>
             </th>
             {dates.map((d) => (
-              <th key={d}>{new Date(d).toDateString()}</th>
+              <th key={d}>
+                {moment(d, "YYYY-MM-DD").format("ddd MMM DD YYYY")}
+              </th>
             ))}
           </tr>
         </thead>

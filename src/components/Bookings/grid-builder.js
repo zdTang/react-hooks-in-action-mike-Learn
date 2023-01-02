@@ -9,7 +9,13 @@ export function getGrid(bookable, startDate) {
     .sort()
     .map((d) => shortISO(addDays(startDate, d))); // use the day numbers to create dates for the week
 
+  console.log(`in the getGrid===`);
+  console.log(`getGrid-dates:`);
+  console.dir(dates);
+
   const sessions = bookable.sessions.map((i) => sessionNames[i]);
+  console.log(`getGrid-get--sessions--name:`);
+  console.dir(sessions);
 
   const grid = {};
 
@@ -25,7 +31,10 @@ export function getGrid(bookable, startDate) {
         })
     );
   });
-  console.log(`in getGrid function--grid`);
+  console.log(`getGrid--final--sessions:`);
+  console.dir(sessions);
+
+  console.log(`getGrid--grid:`);
   console.dir(grid);
   return { grid, dates, sessions };
 }
