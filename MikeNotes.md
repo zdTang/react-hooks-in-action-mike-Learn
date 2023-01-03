@@ -204,3 +204,7 @@ console.dir = function () {};
 so that, need to difference these two level user. YOUSELF(logging user) and other users(which are the handler of those booking items).
 
 # can use useContext to share state, and replace passing props to children components
+
+# Custom provider
+
+read the examples on the book Page 210, to understand the what is in the nutshell of the custom provider

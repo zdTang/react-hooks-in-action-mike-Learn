@@ -6,20 +6,16 @@ import BookablesPage from "./Bookables/BookablesPage";
 import BookingsPage from "./Bookings/BookingsPage";
 import UsersPage from "./Users/UsersPage";
 import UserPicker from "./Users/UserPicker";
-import { useState } from "react";
-import UserContext from "./Users/UserContext";
+import { UserProvider } from "./Users/UserContext";
 
 export default function App() {
   console.log(`in the App==`);
-  const [user, setUser] = useState();
-  console.log(`app--user:`);
-  console.dir(user);
   console.log(`render the App==`);
 
   return (
-    <Router>
-      <div className="App">
-        <UserContext.Provider value={{ user, setUser }}>
+    <UserProvider>
+      <Router>
+        <div className="App">
           <header>
             <nav>
               <ul>
@@ -51,8 +47,8 @@ export default function App() {
             <Route path="/bookables" element={<BookablesPage />} />
             <Route path="/users" element={<UsersPage />} />
           </Routes>
-        </UserContext.Provider>
-      </div>
-    </Router>
+        </div>
+      </Router>
+    </UserProvider>
   );
 }
