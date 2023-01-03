@@ -4,7 +4,7 @@ import UserContext from "../Users/UserContext";
 import Booking from "./Booking";
 export default function BookingDetails({ booking, bookable }) {
   console.log(`in BookingDetails===`);
-  const { user } = useContext(UserContext);
+  const user = useContext(UserContext);
   const isBooker = booking && user && booking.bookerId === user.id;
   return (
     <div className="booking-details">

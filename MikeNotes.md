@@ -208,3 +208,8 @@ so that, need to difference these two level user. YOUSELF(logging user) and othe
 # Custom provider
 
 read the examples on the book Page 210, to understand the what is in the nutshell of the custom provider
+
+# Using seperate context for a state and its updater function-P215
+
+1, Before, we pass a {xx,xx}
+2, Now, we pass only a single value. so that we need fix those useStore expression
