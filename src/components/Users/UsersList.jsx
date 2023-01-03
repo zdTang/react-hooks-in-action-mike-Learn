@@ -21,6 +21,10 @@ export default function UsersList({ user, setUser }) {
         setError(error);
         setIsLoading(false);
       });
+
+    return () => {
+      console.log(`UserList-- cleanUp Effect!`);
+    };
   }, [setUser]); // pass in dependency
 
   if (error) {

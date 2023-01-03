@@ -202,3 +202,5 @@ console.dir = function () {};
 2. the picking user (as a user, I can check other user's bookings,and need to choose other user's name)
 
 so that, need to difference these two level user. YOUSELF(logging user) and other users(which are the handler of those booking items).
+
+# can use useContext to share state, and replace passing props to children components
