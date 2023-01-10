@@ -1,41 +1,38 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { FaArrowRight } from "react-icons/fa";
-import getData from "../../utils/api";
+//import getData from "../../utils/api";
 import Spinner from "../../UI/Spinner";
+import useFetch from "../../utils/useFetch";
 
 export default function BookablesList({ bookable, setBookable }) {
-  console.log("in BookableList====");
+  console.log(`in BookablesList----`);
+  console.log(`para bookable is:`);
+  console.dir(bookable);
+
+  const {
+    data: bookables = [],
+    status,
+    error,
+  } = useFetch("http://localhost:3001/bookables");
 
   // These stata will not be raised to parent as they are not necessary for other places
   // 1. Variables
-  console.log(`bookable:`);
-  console.dir(bookable);
-  const [bookables, setBookables] = useState([]);
-  const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+
+  console.log(`bookables from useFetch is:`);
+  console.dir(bookables);
 
   const group = bookable?.group;
   const groups = [...new Set(bookables.map((b) => b.group))];
   const bookablesInGroup = bookables.filter((b) => b.group === group);
 
-  //const nextButtonRef = useRef();
-
   // 2. Effects
   useEffect(() => {
     console.log("in BookableList's useEffect --");
+    console.log(`bookables[0] is:`);
+    console.dir(bookables[0]);
 
-    getData("http://localhost:3001/bookables")
-      .then((bookables) => {
-        console.log("Bookables loaded successfully");
-        setBookable(bookables[0]); // this state is raised and saved to BookableView
-        setBookables(bookables);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setError(true);
-        setIsLoading(false);
-      });
-  }, [setBookable]); // Include the external function in the dependency list.
+    setBookable(bookables[0]);
+  }, [bookables, setBookable]);
 
   // 3. Handler Functions
 
@@ -44,14 +41,6 @@ export default function BookablesList({ bookable, setBookable }) {
       (b) => b.group === event.target.value
     );
     setBookable(bookablesInSelectedGroup[0]); // raise state to parent
-  }
-
-  function changeBookable(selectedBookable) {
-    setBookable(selectedBookable); // raise state to parent
-    console.log(`in the changeBookable function`);
-    //console.log(`nextButtonRef.current is:`);
-    //console.dir(nextButtonRef.current);
-    //nextButtonRef.current.focus();
   }
 
   // this function will do the trick to cycle the options
@@ -63,11 +52,11 @@ export default function BookablesList({ bookable, setBookable }) {
   }
 
   // 4. ui
-  if (error) {
+  if (status === "error") {
     return <p>{error.message}</p>;
   }
 
-  if (isLoading) {
+  if (status === "loading") {
     console.log("run spinner...");
     return (
       <p>
@@ -91,7 +80,7 @@ export default function BookablesList({ bookable, setBookable }) {
       <ul className="bookables items-list-nav">
         {bookablesInGroup.map((b) => (
           <li key={b.id} className={b.id === bookable.id ? "selected" : null}>
-            <button className="btn" onClick={() => changeBookable(b)}>
+            <button className="btn" onClick={() => setBookable(b)}>
               {b.title}
             </button>
           </li>
