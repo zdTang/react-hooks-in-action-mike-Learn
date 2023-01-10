@@ -218,3 +218,8 @@ read the examples on the book Page 210, to understand the what is in the nutshel
 
 1, in the custom hook, you can see it will use react native hooks to manage states, everytime, those native hooks is called, the whole custom will be re-executed, and will ruturn a new value.
 2, in the component which use the custom hook, once the return value of the custom hook changes, this component is supposed to be re-renndered, just like using native hook.
+
+# use Custom hook in another custom hook
+
+1, wrap build-in hook into custom hook can simplified the logic and re-use the code.
+2, can use custom hook in another custom hook

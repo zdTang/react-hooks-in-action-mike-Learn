@@ -1,50 +1,26 @@
-import React, { useEffect, useMemo, useState, Fragment } from "react";
-import { getGrid, transformBookings } from "./grid-builder";
-import { getBookings } from "../../utils/api";
+import React, { useEffect, Fragment } from "react";
 import Spinner from "../../UI/Spinner";
 import moment from "moment/moment";
 
+import { useBookings, useGird } from "./bookingsHooks";
+
 export default function BookingsGrid({ week, bookable, booking, setBooking }) {
   console.log(`in the Bookings Grid==`);
-  const [bookings, setBookings] = useState(null);
-  const [error, setError] = useState(false);
 
-  const { grid, sessions, dates } = useMemo(
-    () => (bookable ? getGrid(bookable, week.start) : {}),
-
-    [bookable, week.start]
+  const { bookings, status, error } = useBookings(
+    bookable?.id,
+    week.start,
+    week.end
   );
+  const { grid, sessions, dates } = useGird(bookable, week.start);
 
   console.log(`bookingsGrid--dates:`);
   console.dir(dates);
 
   useEffect(() => {
-    console.log(`in the Bookings Grid--Effect ==`);
-    if (bookable) {
-      let doUpdate = true;
-      console.log(
-        `in the Bookings Grid--Effect--update myself and parent's state`
-      );
-      setBookings(null);
-      setError(false);
-      setBooking(null);
-
-      getBookings(bookable.id, week.start, week.end)
-        .then((resp) => {
-          if (doUpdate) {
-            console.log(`in the Bookings Grid--Effect--fetch  Bookings:`);
-            console.dir(resp);
-            const result = transformBookings(resp);
-            console.log(`in the Bookings Grid--Effect--transform  Bookings:`);
-            console.dir(result);
-            setBookings(result);
-          }
-        })
-        .catch(setError);
-
-      return () => (doUpdate = false);
-    }
-  }, [week, bookable, setBooking]);
+    console.log(`in the Bookings Grid--Effect--deselect booking`);
+    setBooking(null);
+  }, [bookable, week.start, setBooking]);
 
   // CELL: mapping bookings to Calendar
   function cell(session, date) {
@@ -56,7 +32,7 @@ export default function BookingsGrid({ week, bookable, booking, setBooking }) {
       <td
         key={date}
         className={isSelected ? "selected" : null}
-        onClick={bookings ? () => setBooking(cellData) : null}
+        onClick={status === "success" ? () => setBooking(cellData) : null}
       >
         {cellData.title}
       </td>
@@ -64,17 +40,21 @@ export default function BookingsGrid({ week, bookable, booking, setBooking }) {
   }
 
   if (!grid) {
-    return <p>Loading...</p>;
+    return <p>Waiting for bookable and week details...</p>;
   }
 
   return (
     <Fragment>
-      {error && (
+      {status === "error" && (
         <p className="bookingsError">
           {`There was a problem loading the bookings data (${error})`}
         </p>
       )}
-      <table className={bookings ? "bookingsGrid active" : "bookingsGrid"}>
+      <table
+        className={
+          status === "success" ? "bookingsGrid active" : "bookingsGrid"
+        }
+      >
         <thead>
           <tr>
             <th>
