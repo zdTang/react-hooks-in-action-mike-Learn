@@ -7,6 +7,7 @@ export default function useFetch(url) {
   const [status, setStatus] = useState("idle"); // it would be better to use a object with different value as state
 
   useEffect(() => {
+    console.log(`in the useFetch--useEffect---`);
     let doUpdate = true;
     setStatus("loading");
     setData(undefined);
@@ -14,7 +15,7 @@ export default function useFetch(url) {
 
     getData(url) //  this function will fetch Data from URL
       .then((data) => {
-        console.log(`in the useFetch---and data is retrieved:`);
+        console.log(`in the useFetch--useEffect-and data is retrieved:`);
         console.dir(data);
         if (doUpdate) {
           console.log(`in the useFetch---start to set data:`);
@@ -33,6 +34,7 @@ export default function useFetch(url) {
 
     return () => (doUpdate = false);
   }, [url]);
-
+  console.log(`in the useFetch--ready to return: ---`);
+  console.dir({ data, status, error });
   return { data, status, error };
 }
