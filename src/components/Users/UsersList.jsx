@@ -1,37 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Spinner from "../../UI/Spinner";
-import getData from "../../utils/api";
+import useFetch from "../../utils/useFetch";
 
 export default function UsersList({ user, setUser }) {
   console.log(`in the UserList===`);
-  const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [users, setUsers] = useState(null);
 
-  useEffect(() => {
-    console.log(`in the UserList--useEffect===`);
-    getData("http://localhost:3001/users")
-      .then((data) => {
-        //setUser(data[0]); // set initial user to first (or undefined)
-        console.log(`in the UserList--useEffect--loading data from DB===`);
-        setUsers(data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        setError(error);
-        setIsLoading(false);
-      });
+  const {
+    data: users = [],
+    status,
+    error,
+  } = useFetch("http://localhost:3001/users");
 
-    return () => {
-      console.log(`UserList-- cleanUp Effect!`);
-    };
-  }, [setUser]); // pass in dependency
-
-  if (error) {
+  if (status === "error") {
     return <p>{error.message}</p>;
   }
 
-  if (isLoading) {
+  if (status === "loading") {
     return (
       <p>
         <Spinner /> Loading users...
