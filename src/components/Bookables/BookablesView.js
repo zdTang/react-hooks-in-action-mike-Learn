@@ -22,8 +22,10 @@ export default function BookablesView() {
   console.log(`render BookableView====`);
   return (
     <>
-      <BookablesList bookable={bookable} setBookable={updateBookable} />
-      <BookableDetails bookable={bookable} />
+      <main className="bookables-page">
+        <BookablesList bookable={bookable} setBookable={updateBookable} />
+        <BookableDetails bookable={bookable} />
+      </main>
     </>
   );
 }

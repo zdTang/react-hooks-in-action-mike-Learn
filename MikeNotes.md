@@ -223,3 +223,10 @@ read the examples on the book Page 210, to understand the what is in the nutshel
 
 1, wrap build-in hook into custom hook can simplified the logic and re-use the code.
 2, can use custom hook in another custom hook
+
+# Chapter 10 third party Hooks
+
+P251, - 10.1.2
+Routes-Route format doesn't work
+use `Element` to make those route work again.
+Now, those route works, can play with URL to try it.
